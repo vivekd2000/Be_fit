@@ -16,10 +16,21 @@ app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/befit';
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-  })
-  .catch(err => console.error('MongoDB connection error:', err));
+async function startServer() {
+  let mongoUri = process.env.MONGO_URI;
+  if (!mongoUri) {
+    // Use mongodb-memory-server if no MONGO_URI is provided
+    const { MongoMemoryServer } = await import('mongodb-memory-server');
+    const mongod = await MongoMemoryServer.create();
+    mongoUri = mongod.getUri();
+    console.log('Using in-memory MongoDB instance. Data will not persist after server stops.');
+  }
+  mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => {
+      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
+}
+
+startServer();
