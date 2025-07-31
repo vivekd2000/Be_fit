@@ -12,7 +12,7 @@ function Recommendations() {
     const fetchRecs = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/user/recommendations', {
+        const res = await axios.get('https://shiny-dollop-r4v4776pgwgvhx5q5-5000.app.github.dev/api/user/recommendations', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setRecs(res.data.recommendations || []);
