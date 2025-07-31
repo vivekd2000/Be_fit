@@ -16,7 +16,7 @@ function VerifyOTP() {
     setError('');
     setSuccess('');
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+      const res = await axios.post('https://shiny-dollop-r4v4776pgwgvhx5q5-5000.app.github.dev/api/auth/verify-otp', { email, otp });
       localStorage.setItem('token', res.data.token);
       setSuccess('OTP verified! Redirecting...');
       setTimeout(() => navigate('/profile'), 1000);
