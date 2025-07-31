@@ -35,7 +35,7 @@ function Profile() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/user/profile', {
+        const res = await axios.get('https://shiny-dollop-r4v4776pgwgvhx5q5-5000.app.github.dev/api/user/profile', {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.data) setForm({ ...form, ...res.data });
