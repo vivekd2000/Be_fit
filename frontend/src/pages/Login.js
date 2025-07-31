@@ -14,7 +14,7 @@ function Login() {
     setError('');
     setSuccess('');
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email });
+      const res = await axios.post('https://shiny-dollop-r4v4776pgwgvhx5q5-5000.app.github.dev/api/auth/login', { email });
       setSuccess(res.data.message);
       setTimeout(() => navigate('/verify-otp', { state: { email } }), 1000);
     } catch (err) {
